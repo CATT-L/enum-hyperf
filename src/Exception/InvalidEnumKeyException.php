@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf-ext/enum/blob/master/LICENSE
  */
 
-namespace Catt\Enum\Exceptions;
+namespace Catt\Enum\Exception;
 
 class InvalidEnumKeyException extends \Exception {
 

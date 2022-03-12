@@ -4,15 +4,11 @@
 namespace Catt\Enum;
 
 
-use Catt\Enum\Exceptions\InvalidEnumKeyException;
-use Catt\Enum\Exceptions\InvalidEnumMemberException;
+use Catt\Enum\Contract\EnumInterface;
+use Catt\Enum\Exception\InvalidEnumKeyException;
+use Catt\Enum\Exception\InvalidEnumMemberException;
 use Hyperf\Constants\AbstractConstants;
-use Hyperf\Constants\ConstantsCollector;
-use Hyperf\Constants\Exception\ConstantsException;
-use Hyperf\Contract\TranslatorInterface;
-use Hyperf\Utils\ApplicationContext;
 use Hyperf\Utils\Contracts\Arrayable;
-use Hyperf\Utils\Str;
 use ReflectionClass;
 
 /**
@@ -24,7 +20,7 @@ use ReflectionClass;
  * @method static getLabel($value)
  * @package Catt\Enum
  */
-abstract class AbstractEnum extends AbstractConstants implements Arrayable {
+abstract class AbstractEnum extends AbstractConstants implements EnumInterface, Arrayable {
 
     /**
      * default value
@@ -80,6 +76,8 @@ abstract class AbstractEnum extends AbstractConstants implements Arrayable {
 
         return null;
     }
+
+    // todo 校验并抛异常的函数
 
     /**
      * @param array|null $values
@@ -276,6 +274,10 @@ abstract class AbstractEnum extends AbstractConstants implements Arrayable {
             'value' => $this->value,
             'label' => $this->label,
         ];
+    }
+
+    public function __toString () {
+        return strval($this->value);
     }
 
 }

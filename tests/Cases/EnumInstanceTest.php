@@ -4,8 +4,8 @@
 namespace HyperfTest\Cases;
 
 
-use Catt\Enum\Exceptions\InvalidEnumKeyException;
-use Catt\Enum\Exceptions\InvalidEnumMemberException;
+use Catt\Enum\Exception\InvalidEnumKeyException;
+use Catt\Enum\Exception\InvalidEnumMemberException;
 use HyperfTest\Enum\HandleStatusEnum;
 
 class EnumInstanceTest extends AbstractTestCase {

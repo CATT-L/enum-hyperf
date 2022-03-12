@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Catt\Enum\Exceptions;
+namespace Catt\Enum\Exception;
 
 
 use Catt\Enum\AbstractEnum;

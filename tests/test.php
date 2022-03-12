@@ -15,7 +15,8 @@ require_once dirname(dirname(__FILE__)).'/vendor/autoload.php';
 //
 // var_dump(in_array('B', [1,2,3]));
 
+$r = HandleStatusEnum::fromValue(1);
 
-$r = HandleStatusEnum::getExcludeConstants([0,1]);
+var_dump('' . $r);
 
-var_dump($r);
+
