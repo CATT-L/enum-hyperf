@@ -4,6 +4,8 @@
 namespace Catt\Enum\Contract;
 
 
+use Catt\Enum\Exception\InvalidEnumMemberException;
+
 interface EnumInterface {
 
     /**
@@ -26,6 +28,13 @@ interface EnumInterface {
      * @return bool
      */
     public function in (array $values): bool;
+
+    /**
+     * @param $enumValue
+     *
+     * @throws InvalidEnumMemberException
+     */
+    public static function verify ($enumValue);
 
 
 }

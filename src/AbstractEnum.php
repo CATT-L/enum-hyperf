@@ -77,8 +77,6 @@ abstract class AbstractEnum extends AbstractConstants implements EnumInterface, 
         return null;
     }
 
-    // todo 校验并抛异常的函数
-
     /**
      * @param array|null $values
      *
@@ -211,6 +209,12 @@ abstract class AbstractEnum extends AbstractConstants implements EnumInterface, 
         return in_array((string) $value, array_map('strval', $validValues), true);
     }
 
+    public static function verify ($enumValue) {
+        if (!$enumValue instanceof static) {
+            new static($enumValue);
+        }
+    }
+
     /**
      * @param $key
      *
@@ -242,14 +246,14 @@ abstract class AbstractEnum extends AbstractConstants implements EnumInterface, 
         return new static($enumValue);
     }
 
-    public function is ($enumValue) {
+    public function is ($enumValue): bool {
         if ($enumValue instanceof static) {
             return $this->value === $enumValue->value;
         }
         return $this->value === $enumValue;
     }
 
-    public function isNot ($enumValue) {
+    public function isNot ($enumValue): bool {
         return !$this->is($enumValue);
     }
 
