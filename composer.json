@@ -1,0 +1,52 @@
+{
+  "name" :"catt-l/enum-hyperf",
+  "type" :"library",
+  "license" :"Apache-2.0",
+  "keywords" :[
+    "php",
+    "hyperf"
+  ],
+  "description" :"Support enum for hyperf.",
+  "autoload" :{
+    "psr-4" :{
+      "Catt\\Enum\\" :"src/"
+    }
+  },
+  "autoload-dev" :{
+    "psr-4" :{
+      "HyperfTest\\" :"tests"
+    },
+    "files" :[
+      "tests/Functions.php"
+    ]
+  },
+  "require" :{
+    "php" :">=7.3",
+    "hyperf/constants" :"^2.2",
+    "hyperf/di" :"2.2.*",
+    "hyperf/framework" :"2.2.*"
+  },
+  "require-dev" :{
+    "mockery/mockery" :"^1.0",
+    "phpunit/phpunit" :">=7.0",
+    "swoole/ide-helper" :"^4.5"
+  },
+  "suggest" :{
+    "swow/swow" :"Required to create swow components."
+  },
+  "minimum-stability" :"dev",
+  "prefer-stable" :true,
+  "config" :{
+    "optimize-autoloader" :true,
+    "sort-packages" :true
+  },
+  "scripts" :{
+    "test" :"phpunit -c phpunit.xml --colors=always",
+    "cs-fix" :"php-cs-fixer fix $1"
+  },
+  "extra" :{
+    "hyperf" :{
+      "config" :"Catt\\Enum\\ConfigProvider"
+    }
+  }
+}
