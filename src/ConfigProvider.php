@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Catt\Enum;
 
 use Catt\Enum\Listener\ValidatorFactoryResolvedListener;
+use Catt\Enum\Listener\VerifyConstantsAnnotationListener;
 
 class ConfigProvider {
     public function __invoke (): array {
@@ -20,6 +21,7 @@ class ConfigProvider {
             'dependencies' => [],
             'commands'     => [],
             'listeners'    => [
+                VerifyConstantsAnnotationListener::class,
                 ValidatorFactoryResolvedListener::class,
             ],
             'annotations'  => [
