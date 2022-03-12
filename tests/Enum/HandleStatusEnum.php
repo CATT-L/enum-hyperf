@@ -14,6 +14,11 @@ class HandleStatusEnum extends AbstractEnum {
 
     public static $default = self::Init;
 
+    public static $exclude = [
+        self::Deprecated_A,
+        self::Deprecated_B,
+    ];
+
     /**
      * 待处理
      * @Label("等待处理")
@@ -37,5 +42,17 @@ class HandleStatusEnum extends AbstractEnum {
      * @Label("处理失败")
      */
     const Error = 3;
+
+    /**
+     * 废弃枚举值A
+     * @Label("废弃枚举值A")
+     */
+    const Deprecated_A = 'A';
+
+    /**
+     * 废弃枚举值B
+     * @Label("废弃枚举值B")
+     */
+    const Deprecated_B = 'B';
 
 }

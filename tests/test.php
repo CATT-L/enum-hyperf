@@ -9,39 +9,13 @@ use HyperfTest\Enum\HandleStatusEnum;
 require_once dirname(dirname(__FILE__)).'/vendor/autoload.php';
 
 // -----------------------------------------------------------
-//
-// var_dump('hello');
-//
-// $enum = new HandleStatusEnum();
-//
-// var_dump($enum);
-//
-// var_dump(HandleStatusEnum::getConstants());
-//
-// $reader = new AnnotationReader();
-//
-// $ref = new \ReflectionClass(HandleStatusEnum::class);
-// $constants = $ref->getReflectionConstants();
-//
-// $data = $reader->getAnnotations($constants);
-//
-// ConstantsCollector::set(HandleStatusEnum::class, $data);
-//
-//
-//
-// // var_dump($data);
-//
-// $r = HandleStatusEnum::getLabel(1);
-// var_dump($r);
 
 
-// var_dump(HandleStatusEnum::getConstants());
-// var_dump(HandleStatusEnum::$default);
+// var_dump(HandleStatusEnum::getConstants([0, 1, 2, 3]));
 //
-// $enum = HandleStatusEnum::fromKey('Init');
-//
-// var_dump($enum->value);
+// var_dump(in_array('B', [1,2,3]));
 
 
-// var_dump(HandleStatusEnum::fromValue(2) > HandleStatusEnum::fromValue(111));
-// $enum->setValue();
+$r = HandleStatusEnum::getExcludeConstants([0,1]);
+
+var_dump($r);

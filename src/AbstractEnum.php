@@ -11,6 +11,7 @@ use Hyperf\Constants\ConstantsCollector;
 use Hyperf\Constants\Exception\ConstantsException;
 use Hyperf\Contract\TranslatorInterface;
 use Hyperf\Utils\ApplicationContext;
+use Hyperf\Utils\Contracts\Arrayable;
 use Hyperf\Utils\Str;
 use ReflectionClass;
 
@@ -23,7 +24,7 @@ use ReflectionClass;
  * @method static getLabel($value)
  * @package Catt\Enum
  */
-abstract class AbstractEnum extends AbstractConstants {
+abstract class AbstractEnum extends AbstractConstants implements Arrayable {
 
     /**
      * default value
@@ -31,6 +32,13 @@ abstract class AbstractEnum extends AbstractConstants {
      * @var null
      */
     public static $default = null;
+
+    /**
+     * Exclude value if it was deprecated
+     *
+     * @var array
+     */
+    public static $exclude = [];
 
     /**
      * @var mixed
@@ -73,11 +81,12 @@ abstract class AbstractEnum extends AbstractConstants {
         return null;
     }
 
-
     /**
+     * @param array|null $values
+     *
      * @return array
      */
-    public static function getConstants (): array {
+    public static function getConstants (array $values = null): array {
 
         $class = get_called_class();
 
@@ -91,7 +100,81 @@ abstract class AbstractEnum extends AbstractConstants {
             static::$constants[$class] = $constants;
         }
 
-        return static::$constants[$class];
+        $constants = static::$constants[$class];
+
+        if (is_null($values)) {
+            return $constants;
+        }
+
+        if (empty($values)) {
+            return [];
+        }
+
+        return array_filter($constants, function ($item) use ($values) {
+            return in_array($item, $values, true);
+        });
+    }
+
+    public static function getOnlyConstants (array $values = null): array {
+
+        if (is_null($values)) {
+            $values = [];
+        }
+
+        return static::getConstants($values);
+    }
+
+    public static function getExcludeConstants (array $values = null): array {
+
+        if (is_null($values)) {
+            $values = static::$exclude;
+        }
+
+        if (empty($values)) {
+            $values = null;
+        }
+
+        if (!is_null($values)) {
+            $values = array_diff(static::getValues(), $values);
+        }
+
+        return static::getOnlyConstants($values);
+    }
+
+
+    /**
+     * @param array|null $values
+     *
+     * @return static[]
+     */
+    public static function getInstances (array $values = null): array {
+
+        if (is_null($values)) {
+            $values = static::getValues();
+        }
+
+        return array_map(function ($constantValue) {
+            return new static($constantValue);
+        }, $values);
+    }
+
+    /**
+     * @param array|null $values
+     *
+     * @return array
+     */
+    public static function getOptions (array $values = null): array {
+        return array_map(function ($instance) {
+            return $instance->toArray();
+        }, static::getInstances($values));
+    }
+
+    public static function getExcludeOptions (array $values = null): array {
+        return static::getOptions(static::getExcludeConstants($values));
+    }
+
+    public static function getOnlyOptions (array $values = null): array {
+        return static::getOptions(static::getOnlyConstants($values));
     }
 
     public static function getKeys (): array {
@@ -100,6 +183,12 @@ abstract class AbstractEnum extends AbstractConstants {
 
     public static function getValues (): array {
         return array_values(static::getConstants());
+    }
+
+    public static function getLabels (): array {
+        return array_map(function ($value) {
+            return static::getLabel($value);
+        }, static::getValues());
     }
 
     public static function getKey ($value): string {
@@ -179,6 +268,14 @@ abstract class AbstractEnum extends AbstractConstants {
         }
 
         return false;
+    }
+
+    public function toArray (): array {
+        return [
+            'key'   => $this->key,
+            'value' => $this->value,
+            'label' => $this->label,
+        ];
     }
 
 }
