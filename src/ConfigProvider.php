@@ -9,18 +9,20 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 namespace Catt\Enum;
 
-class ConfigProvider
-{
-    public function __invoke(): array
-    {
+use Catt\Enum\Listener\ValidatorFactoryResolvedListener;
+
+class ConfigProvider {
+    public function __invoke (): array {
         return [
-            'dependencies' => [
+            'dependencies' => [],
+            'commands'     => [],
+            'listeners'    => [
+                ValidatorFactoryResolvedListener::class,
             ],
-            'commands' => [
-            ],
-            'annotations' => [
+            'annotations'  => [
                 'scan' => [
                     'paths' => [
                         __DIR__,
