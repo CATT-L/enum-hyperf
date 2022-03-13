@@ -16,9 +16,13 @@ SetupConstants(HandleStatusEnum::class);
 //
 // var_dump(in_array('B', [1,2,3]));
 
-$r = (new EnumValue(HandleStatusEnum::class))->passes('', 1);
+// $r = (new EnumValue(HandleStatusEnum::class))->passes('', 1);
 
-$r = (new EnumValue(HandleStatusEnum::class))->message();
+// $r = (new EnumValue(HandleStatusEnum::class))->message();
 
-var_dump($r);
+
+$r = HandleStatusEnum::getInstances();
+
+
+var_dump(json_encode($r, JSON_PRETTY_PRINT));
 

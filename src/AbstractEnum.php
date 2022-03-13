@@ -8,7 +8,9 @@ use Catt\Enum\Contract\EnumInterface;
 use Catt\Enum\Exception\InvalidEnumKeyException;
 use Catt\Enum\Exception\InvalidEnumMemberException;
 use Hyperf\Constants\AbstractConstants;
+use Hyperf\Contract\CastsAttributes;
 use Hyperf\Utils\Contracts\Arrayable;
+use phpDocumentor\Reflection\Types\Mixed_;
 use ReflectionClass;
 
 /**
@@ -20,7 +22,7 @@ use ReflectionClass;
  * @method static getLabel($value)
  * @package Catt\Enum
  */
-abstract class AbstractEnum extends AbstractConstants implements EnumInterface, Arrayable {
+abstract class AbstractEnum extends AbstractConstants implements EnumInterface, Arrayable, \JsonSerializable, CastsAttributes {
 
     /**
      * default value
@@ -246,6 +248,33 @@ abstract class AbstractEnum extends AbstractConstants implements EnumInterface, 
         return new static($enumValue);
     }
 
+    /**
+     * @param mixed $enumKeyOrValue
+     * @param bool  $tryKey 是否尝试匹配key
+     *
+     * @throws \Exception
+     * @return static|null
+     */
+    public static function coerce ($enumKeyOrValue, $tryKey = false): ?self {
+
+        if (is_null($enumKeyOrValue)) {
+            return null;
+        }
+
+        if (static::hasValue($enumKeyOrValue)) {
+            return static::fromValue($enumKeyOrValue);
+        }
+
+        if ($tryKey) {
+            if (is_string($enumKeyOrValue) && static::hasKey($tryKey)) {
+                $enumValue = static::getValue($enumKeyOrValue);
+                return static::fromValue($enumValue);
+            }
+        }
+
+        return null;
+    }
+
     public function is ($enumValue): bool {
         if ($enumValue instanceof static) {
             return $this->value === $enumValue->value;
@@ -280,8 +309,20 @@ abstract class AbstractEnum extends AbstractConstants implements EnumInterface, 
         ];
     }
 
+    public function jsonSerialize () {
+        return $this->toArray();
+    }
+
     public function __toString () {
         return strval($this->value);
+    }
+
+    public function get ($model, string $key, $value, array $attributes): ?self {
+        return static::coerce($value);
+    }
+
+    public function set ($model, string $key, $value, array $attributes) {
+        return (static::fromValue($value))->value;
     }
 
 }

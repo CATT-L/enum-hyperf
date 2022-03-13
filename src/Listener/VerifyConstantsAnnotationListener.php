@@ -6,10 +6,8 @@ namespace Catt\Enum\Listener;
 use Catt\Enum\AbstractEnum;
 use Hyperf\Constants\ConstantsCollector;
 use Hyperf\Contract\StdoutLoggerInterface;
-use Hyperf\Event\Annotation\Listener;
 use Hyperf\Event\Contract\ListenerInterface;
 use Hyperf\Framework\Event\BootApplication;
-use Hyperf\Framework\Event\OnManagerStart;
 
 /**
  * 枚举重复校验
