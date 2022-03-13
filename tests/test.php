@@ -24,7 +24,10 @@ SetupConstants(HandleStatusEnum::class);
 // $init       = HandleStatusEnum::fromValue(HandleStatusEnum::Init);
 $processing = HandleStatusEnum::fromValue(HandleStatusEnum::Processing);
 
-var_dump($processing);
+// var_dump($processing);
+
+// echo var_export(HandleStatusEnum::getOptions());
+
 
 // $success    = HandleStatusEnum::fromValue(HandleStatusEnum::Success);
 //
@@ -49,3 +52,4 @@ var_dump($processing);
 // $processing->in([]);                                                   // false
 // $processing->in(['foobar']);                                           // false
 //
+
