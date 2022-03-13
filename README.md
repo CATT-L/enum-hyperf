@@ -336,14 +336,10 @@ HandleStatusEnum::getExcludeOptions([2,3]);
 
 由于实现了 `Castable` 接口，可以方便地将属性在数据库值和枚举值之间自动转换。
 
-由于数据库查询出来都是字符串，而枚举类是严格校验数据类型的，因此需要保留 `$casts` 中将字符串转换为真实数据类型的设置。
-
-在此基础上额外添加 `$enumCasts` 属性，同时引入 Traits `use CastEnums;` 即可实现模型属性的类型转换。
-
 在模型中的使用方法。
 
 ```php
-use Catt\Enum\Traits\CastEnums;
+
 
 /**
  * @property int    $id
@@ -352,7 +348,6 @@ use Catt\Enum\Traits\CastEnums;
  */
 class ArticleReview extends Model {
   
-  	use CastEnums;
 
     /**
      * The table associated with the model.
@@ -380,15 +375,10 @@ class ArticleReview extends Model {
     protected $casts = [
         'id'             => 'integer',
         'articleId'      => 'integer',
-        'handleStatus'   => 'integer',
-    ];
-  
-		protected $enumCasts = [
-        'handleStatus' => HandleStatusEnum::class,
+        'handleStatus'   => HandleStatusEnum::class,
     ];
 
 }
-
 
 $review = ArticleReview::find(1);
 // [
