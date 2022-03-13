@@ -49,24 +49,3 @@ var_dump($processing);
 // $processing->in([]);                                                   // false
 // $processing->in(['foobar']);                                           // false
 //
-//
-
-// object(App\Model\Enum\HandleStatusEnum)#9 (3) {
-//   ["value":protected]=>
-//   int(1)
-//   ["key":protected]=>
-//   string(10) "Processing"
-//   ["label":protected]=>
-//   string(9) "处理中"
-// }
-
-// HandleStatusEnum::getConstants(); // ['Init' => 0, 'Processing' => 1, 'Success' => 2, 'Error' => 3]
-
-// HandleStatusEnum::getConstants([0, 1]); // ['Init' => 0, 'Processing' => 1]
-
-// [0, 1, 2, 3]
-HandleStatusEnum::getLabels();
-
-var_dump(var_export(HandleStatusEnum::getLabels()));// var_dump(var_export(HandleStatusEnum::getConstants([0, 1])));
-
-;
