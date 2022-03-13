@@ -10,7 +10,7 @@ use HyperfTest\Enum\HandleStatusEnum;
 
 class EnumDefaultCastTest extends AbstractTestCase {
 
-    public function testDefaultCastsStrict () {
+    public function testDefaultCastStrict () {
 
         $this->expectException(InvalidEnumMemberException::class);
 
@@ -19,12 +19,22 @@ class EnumDefaultCastTest extends AbstractTestCase {
         $model->handleStatus = strval(HandleStatusEnum::Processing);
     }
 
-    public function testDefaultCasts () {
+    public function testDefaultCast () {
 
         $model = new ExampleDefaultCastsModel();
 
         $model->handleStatus = HandleStatusEnum::Processing;
 
         $this->assertInstanceOf(HandleStatusEnum::class, $model->handleStatus);
+    }
+
+    public function testDefaultCastToArray () {
+
+        $model = new ExampleDefaultCastsModel();
+
+        $model->handleStatus = HandleStatusEnum::Processing;
+
+        $this->assertSame(['handleStatus' => $model->handleStatus->toArray()], $model->toArray());
+
     }
 }

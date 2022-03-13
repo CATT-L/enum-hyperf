@@ -10,7 +10,7 @@ use Hyperf\Database\Model\Model;
 /**
  * Class ExampleModel
  *
- * @property string $handleStatus 处理状态
+ * @property string|HandleStatusEnum $handleStatus 处理状态
  * @package HyperfTest\Enum
  */
 class ExampleDefaultCastsModel extends Model {
