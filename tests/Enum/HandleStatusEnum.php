@@ -23,13 +23,13 @@ class HandleStatusEnum extends AbstractEnum {
 
     /**
      * 待处理
-     * @Label("待处理")
+     * @Label("等待处理")
      */
     const Init = 0;
 
     /**
      * 处理中
-     * @Label("处理中")
+     * @Label("正在处理")
      */
     const Processing = 1;
 
