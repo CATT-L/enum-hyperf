@@ -8,12 +8,12 @@ use Catt\Enum\Exception\InvalidEnumMemberException;
 
 interface EnumInterface {
 
-    /**
-     * EnumInterface constructor.
-     *
-     * @param mixed $enumValue
-     */
-    public function __construct ($enumValue);
+    // /**
+    //  * EnumInterface constructor.
+    //  *
+    //  * @param mixed $enumValue
+    //  */
+    // public function __construct ($enumValue);
 
     /**
      * @param mixed $enumValue
