@@ -36,5 +36,4 @@ interface EnumInterface {
      */
     public static function verify ($enumValue);
 
-
 }

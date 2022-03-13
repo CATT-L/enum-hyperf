@@ -10,7 +10,6 @@ use Catt\Enum\Exception\InvalidEnumMemberException;
 use Hyperf\Constants\AbstractConstants;
 use Hyperf\Contract\CastsAttributes;
 use Hyperf\Utils\Contracts\Arrayable;
-use phpDocumentor\Reflection\Types\Mixed_;
 use ReflectionClass;
 
 /**
@@ -25,11 +24,18 @@ use ReflectionClass;
 abstract class AbstractEnum extends AbstractConstants implements EnumInterface, Arrayable, \JsonSerializable, CastsAttributes {
 
     /**
-     * default value
+     * Default value for static::fromDefault()
      *
-     * @var null
+     * @var mixed|null
      */
     public static $default = null;
+
+    /**
+     * The name of enum
+     *
+     * @var string|null
+     */
+    public static $name = null;
 
     /**
      * Exclude value if it was deprecated
@@ -211,6 +217,7 @@ abstract class AbstractEnum extends AbstractConstants implements EnumInterface, 
         return in_array((string) $value, array_map('strval', $validValues), true);
     }
 
+
     public static function verify ($enumValue) {
         if (!$enumValue instanceof static) {
             new static($enumValue);
@@ -246,6 +253,14 @@ abstract class AbstractEnum extends AbstractConstants implements EnumInterface, 
         }
 
         return new static($enumValue);
+    }
+
+    /**
+     * @throws \Exception
+     * @return static|null
+     */
+    public static function fromDefault (): ?self {
+        return static::coerce(static::$default);
     }
 
     /**
