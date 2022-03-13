@@ -5,20 +5,16 @@ namespace HyperfTest\Cases;
 
 
 use Catt\Enum\Exception\InvalidEnumMemberException;
-use HyperfTest\Enum\ExampleModel;
+use HyperfTest\Enum\ExampleDefaultCastsModel;
+use HyperfTest\Enum\ExampleEnumCastsModel;
 use HyperfTest\Enum\ExampleNoCastModel;
 use HyperfTest\Enum\HandleStatusEnum;
 
 class EnumCastTest extends AbstractTestCase {
 
-    protected function setUp (): void {
-        parent::setUp();
-        SetupConstants(HandleStatusEnum::class);
-    }
-
     public function testFunctionsOnCastEnums () {
 
-        $model = new ExampleModel();
+        $model = new ExampleEnumCastsModel();
 
         $this->assertTrue($model->hasEnumCast('handleStatus'));
         $this->assertFalse($model->hasEnumCast('foobar'));
@@ -26,7 +22,7 @@ class EnumCastTest extends AbstractTestCase {
 
     public function testModelSetByEnumInstance () {
 
-        $model = new ExampleModel();
+        $model = new ExampleEnumCastsModel();
 
         $model->handleStatus = HandleStatusEnum::fromDefault();
 
@@ -35,7 +31,7 @@ class EnumCastTest extends AbstractTestCase {
 
     public function testModelSetByEnumValue () {
 
-        $model = new ExampleModel();
+        $model = new ExampleEnumCastsModel();
 
         $model->handleStatus = HandleStatusEnum::$default;
 
@@ -46,14 +42,14 @@ class EnumCastTest extends AbstractTestCase {
 
         $this->expectException(InvalidEnumMemberException::class);
 
-        $model = new ExampleModel();
+        $model = new ExampleEnumCastsModel();
 
         $model->handleStatus = -1;
     }
 
     public function testModelValueReturnEnumInstance () {
 
-        $model = new ExampleModel();
+        $model = new ExampleEnumCastsModel();
 
         $model->handleStatus = HandleStatusEnum::$default;
 
@@ -62,16 +58,25 @@ class EnumCastTest extends AbstractTestCase {
 
     public function testModelValueSetNull () {
 
-        $model = new ExampleModel();
+        $model = new ExampleEnumCastsModel();
 
         $model->handleStatus = null;
 
         $this->assertNull($model->handleStatus);
     }
 
+    public function testModelValueSetStrict () {
+
+        $model = new ExampleEnumCastsModel();
+
+        $model->handleStatus = strval(HandleStatusEnum::Processing);
+
+        $this->assertInstanceOf(HandleStatusEnum::class, $model->handleStatus);
+    }
+
     public function testModelCastToArray () {
 
-        $model = new ExampleModel();
+        $model = new ExampleEnumCastsModel();
 
         $model->handleStatus = HandleStatusEnum::Processing;
 
@@ -86,6 +91,5 @@ class EnumCastTest extends AbstractTestCase {
 
         $this->assertEquals($model->handleStatus, HandleStatusEnum::Processing);
     }
-
 
 }

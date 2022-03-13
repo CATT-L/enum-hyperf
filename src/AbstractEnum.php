@@ -516,4 +516,22 @@ abstract class AbstractEnum extends AbstractConstants implements EnumInterface, 
         return new EnumCast(static::class);
     }
 
+    /**
+     * @param $value
+     *
+     * @return mixed
+     */
+    public static function parseDatabase ($value) {
+        return $value;
+    }
+
+    /**
+     * @param $value
+     *
+     * @return mixed
+     */
+    public static function serializeDatabase ($value) {
+        return $value;
+    }
+
 }

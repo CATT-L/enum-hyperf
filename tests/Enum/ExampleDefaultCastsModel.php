@@ -13,15 +13,9 @@ use Hyperf\Database\Model\Model;
  * @property string $handleStatus 处理状态
  * @package HyperfTest\Enum
  */
-class ExampleModel extends Model {
-
-    use CastEnums;
+class ExampleDefaultCastsModel extends Model {
 
     protected $casts = [
-        'handleStatus' => 'integer',
-    ];
-
-    protected $enumCasts = [
         'handleStatus' => HandleStatusEnum::class,
     ];
 

@@ -43,13 +43,16 @@ trait CastEnums {
      * @return $this
      */
     public function setAttribute ($key, $value) {
+
         if ($value !== null && $this->hasEnumCast($key)) {
+
             $enum = $this->enumCasts[$key];
 
             if ($value instanceof $enum) {
                 $this->attributes[$key] = $value->value;
             }
             else {
+
                 if ($this->hasCast($key)) {
                     $value = $this->castAttribute($key, $value);
                 }
@@ -83,14 +86,17 @@ trait CastEnums {
      *
      * @param string $key
      * @param mixed  $value
+     *
+     * @return AbstractEnum|null
      */
     protected function castToEnum ($key, $value): ?AbstractEnum {
         /** @var AbstractEnum $enum */
         $enum = $this->enumCasts[$key];
 
-        if ($value === null || $value instanceof AbstractEnum) {
+        if ($value instanceof AbstractEnum) {
             return $value;
         }
-        return $enum::fromValue($value);
+
+        return $enum::coerce($value);
     }
 }

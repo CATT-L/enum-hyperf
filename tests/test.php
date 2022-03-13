@@ -4,6 +4,8 @@ namespace HyperfTest;
 
 use Catt\Enum\Exception\InvalidEnumMemberException;
 use Catt\Enum\Rule\EnumValue;
+use HyperfTest\Enum\ExampleDefaultCastsModel;
+use HyperfTest\Enum\ExampleEnumCastsModel;
 use HyperfTest\Enum\HandleStatusEnum;
 
 require_once dirname(dirname(__FILE__)).'/vendor/autoload.php';
@@ -54,4 +56,11 @@ SetupConstants(HandleStatusEnum::class);
 // $processing->in(['foobar']);                                           // false
 //
 
+//
+// $model = new ExampleDefaultCastsModel();
+//
+// $model->handleStatus = 1;
+//
+// var_dump($model->handleStatus);
+//
 

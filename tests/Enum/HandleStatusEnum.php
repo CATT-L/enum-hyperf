@@ -56,5 +56,4 @@ class HandleStatusEnum extends AbstractEnum {
      * @Label("废弃枚举值B")
      */
     const Deprecated_B = 'B';
-
 }

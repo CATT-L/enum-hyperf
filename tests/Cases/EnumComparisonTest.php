@@ -8,11 +8,6 @@ use HyperfTest\Enum\HandleStatusEnum;
 
 class EnumComparisonTest extends AbstractTestCase {
 
-    protected function setUp (): void {
-        parent::setUp();
-        SetupConstants(HandleStatusEnum::class);
-    }
-
     public function testComparePlain () {
 
         $success = HandleStatusEnum::fromValue(HandleStatusEnum::Success);
