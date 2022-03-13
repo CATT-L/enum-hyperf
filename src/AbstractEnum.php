@@ -20,7 +20,6 @@ use ReflectionClass;
  * @property-read string $key
  * @property-read mixed  $value
  * @property-read string $label
- * @method static getLabel($value)
  * @package Catt\Enum
  */
 abstract class AbstractEnum extends AbstractConstants implements EnumInterface, Arrayable, \JsonSerializable, Castable {
@@ -312,6 +311,19 @@ abstract class AbstractEnum extends AbstractConstants implements EnumInterface, 
      */
     public static function getValue (string $key) {
         return @static::getConstants()[$key];
+    }
+
+    /**
+     * 读取 `$value` 对应的 `$label`。
+     * 若不存在则返回空字符串。
+     *
+     * @param $value
+     *
+     * @throws \Hyperf\Constants\Exception\ConstantsException
+     * @return mixed|string
+     */
+    public static function getLabel ($value) {
+        return static::__callStatic('getLabel', func_get_args());
     }
 
     /**

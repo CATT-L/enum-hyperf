@@ -9,8 +9,14 @@ use Catt\Enum\Exception\InvalidEnumMemberException;
 interface EnumInterface {
 
     /**
-     * @param mixed $enumValue
+     * EnumInterface constructor.
      *
+     * @param mixed $enumValue
+     */
+    public function __construct ($enumValue);
+
+    /**
+     * @param mixed $enumValue
      * @return bool
      */
     public function is ($enumValue): bool;
