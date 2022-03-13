@@ -1,5 +1,7 @@
 # 适用于 Hyperf 的枚举组件
 
+<a href="https://github.com/CATT-L"><img src="https://img.shields.io/badge/Powered%20by-CATT--L-ff69b4" alt="Powered By"></a>
+
 - 继承 [`hyperf/constants`](https://github.com/hyperf/constants) 实现
 - 类常量即枚举键值对
 - 可实例化
@@ -16,8 +18,18 @@
 
 
 
-[TOC]
-
+* [安装](#安装)
+* [使用](#使用)
+    * [枚举定义](#枚举定义)
+    * [实例属性](#实例属性)
+    * [实例类型转换](#实例类型转换)
+    * [实例比较](#实例比较)
+    * [类型提示](#类型提示)
+    * [生成选项列表](#生成选项列表)
+    * [模型属性类型转换](#模型属性类型转换)
+    * [启动自动检测枚举重复值](#启动自动检测枚举重复值)
+    * [验证器](#验证器)
+* [AbstractEnum 类参考](#AbstractEnum-类参考)
 
 
 ## 安装
@@ -218,7 +230,7 @@ interface EnumInterface {
 }
 ```
 
-方法 `is` 的使用示例，`isNot` 和 `is` 逻辑完全相反，故不再演示。
+方法 `is` 的使用示例，`isNot` 和 `is` 逻辑完全相反，故不再演示。
 
 ```php
 $processing = HandleStatusEnum::fromValue(HandleStatusEnum::Processing);
@@ -259,7 +271,7 @@ function isProcessing (HandleStatusEnum $handleStatus) {
 }
 ```
 
-#### 生成选项列表（供前端使用）
+#### 生成选项列表
 
 可用于前端下拉框。
 
@@ -278,6 +290,8 @@ HandleStatusEnum::getOptions();
 ```
 
 有些场景，我们只希望返回部分选项。
+
+
 
 `getOnlyOptions(array $values = null)` 
 
@@ -416,7 +430,7 @@ $review->handleStatus = HandleStatusEnum::fromValue(2);
 
 可以验证参数是否为给定枚举的枚举值范围。
 
-若希望 `'1' == 1` 为真，可以通过参数关闭严格校验模式，但是不建议。
+若希望 `'1' == 1` 为真，可以通过参数关闭严格校验模式，但是不建议。
 
 ```php
 use Hyperf\Utils\ApplicationContext;
@@ -578,7 +592,7 @@ HandleStatusEnum::getExcludeConstants();
 
 ```
 
-设置 `static $default` 为 `[0, 1]` 的情况
+设置 `static $default` 为 `[0, 1]` 的情况
 
 ```php
 // $default 设置为 [0, 1]
@@ -597,7 +611,7 @@ HandleStatusEnum::getExcludeConstants([]);
 
 返回`$values`范围内的实例数组，以常量key作为键值。
 
-若 `$values` 为 `null`，则返回所有。
+若 `$values` 为 `null`，则返回所有。
 
 ```php
 // [
