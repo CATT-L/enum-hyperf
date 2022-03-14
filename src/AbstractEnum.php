@@ -80,26 +80,24 @@ abstract class AbstractEnum extends AbstractConstants implements EnumInterface, 
     /**
      * AbstractEnum constructor.
      *
-     * @param $enumValue
-     *
      * @throws InvalidEnumMemberException
+     * @throws \Hyperf\Constants\Exception\ConstantsException
      */
     public function __construct () {
 
-        var_dump(func_get_args());
+        $enumValue = reset(func_get_args());
 
-        // var_dump($enumValue);
-        // var_dump('xx');
+        if (!is_null($enumValue)) {
 
-        $enumValue = null;
+            if (!static::hasValue($enumValue)) {
+                throw new InvalidEnumMemberException($enumValue, $this);
+            }
 
-        if (!static::hasValue($enumValue)) {
-            throw new InvalidEnumMemberException($enumValue, $this);
+            $this->value = $enumValue;
+            $this->key   = static::getKey($enumValue);
+            $this->label = static::getLabel($enumValue);
         }
 
-        $this->value = $enumValue;
-        $this->key   = static::getKey($enumValue);
-        $this->label = static::getLabel($enumValue);
     }
 
     /**
