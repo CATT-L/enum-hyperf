@@ -85,7 +85,14 @@ abstract class AbstractEnum extends AbstractConstants implements EnumInterface, 
      */
     public function __construct () {
 
-        $enumValue = reset(func_get_args());
+        $args = func_get_args();
+
+        if (count($args) > 0) {
+            $enumValue = reset($args);
+        }
+        else {
+            $enumValue = null;
+        }
 
         if (!is_null($enumValue)) {
 
