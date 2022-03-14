@@ -84,10 +84,14 @@ abstract class AbstractEnum extends AbstractConstants implements EnumInterface, 
      *
      * @throws InvalidEnumMemberException
      */
-    public function __construct (?string $enumValue) {
-        
-        var_dump($enumValue);
-        var_dump('xx');
+    public function __construct () {
+
+        var_dump(func_get_args());
+
+        // var_dump($enumValue);
+        // var_dump('xx');
+
+        $enumValue = null;
 
         if (!static::hasValue($enumValue)) {
             throw new InvalidEnumMemberException($enumValue, $this);
